@@ -68,7 +68,7 @@ pip3_packages() {
 config(){ /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@; }
 dotfile_copy(){
   [ ! -d "$HOME/.cfg" ] && mkdir $HOME/.cfg
-  git clone --bare $DOTFILE_REPO $HOME/.cfg
+  git clone --bare $dotfile_repo $HOME/.cfg
   mkdir -p .config-backup
   config checkout
   if [ $? = 0 ]; then
