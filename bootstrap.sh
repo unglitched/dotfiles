@@ -20,6 +20,8 @@ text_bar="======================================================================
 ### Dependency Installation Variables ###
 debian_packages=(
   "git"
+  "python3"
+  "vim"
   "lxde"
 )
 
