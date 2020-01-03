@@ -44,13 +44,13 @@ log() { printf "$(fmt) $@\n$text_bar\n"; }
 try() { "$1" && yay "$2" || err "Failure at $1"; }
 
 debian_install() { 
-  # TODO: Install each one in a loop, to better enable status tracking
-  sudo apt-get update
+  echo "Updating system..."
+  sudo apt-get update > /dev/null
   for package in "${debian_packages[@]}"; do
-    echo "Installing $package"
+    echo "Installing $package ..."
     sudo apt-get install -y $package > /dev/null; 
   done
-  echo "Setting i3"
+  echo "Setting i3 as default WM"
   echo "exec i3" > $HOME/.xsession
   update-alternatives --config x-session-manager
 }
@@ -90,15 +90,14 @@ if os darwin; then
     log "Installing Brew..."
   fi 
 elif linux gnu; then
-  log "Detected OS: Linux"
   if distro "Debian"; then
-    log "Detected Distro: Debian"
+    log "Running Debian Install Scripts"
     try debian_install "Debian apps installed"
     log "Installing pip3 packages..."
     try pip3_packages "Custom python packages installed"
   fi
   if distro "Kali"; then
-    log "Detected Distro: Kali"
+    log "Running Kali Install Scripts"
   fi
   if exists git; then
     log "Grabbing dotfiles. Conflicts will be saved to .config-backup"
