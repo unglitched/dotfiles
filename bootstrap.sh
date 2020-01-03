@@ -18,7 +18,7 @@ dotfile_repo="https://www.github.com/qrbounty/dotfiles.git"
 text_bar="============================================================================="
 
 ### Dependency Installation Variables ###
-declare -a debian_packages=("git" "python3" "vim" "lxde")
+declare -a debian_packages=("git" "python3" "python3-pip" "vim" "lxde")
 
 declare -a pip3_packages=("yara")
 
