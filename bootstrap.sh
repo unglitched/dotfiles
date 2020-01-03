@@ -18,16 +18,9 @@ dotfile_repo="https://www.github.com/qrbounty/dotfiles.git"
 text_bar="============================================================================="
 
 ### Dependency Installation Variables ###
-debian_packages=(
-  "git"
-  "python3"
-  "vim"
-  "lxde"
-)
+declare -a debian_packages=("git" "python3" "vim" "lxde")
 
-pip3_packages=(
-  "yara"
-)
+declare -a pip3_packages=("yara")
 
 ###  Functions  ###
 # Usage: "if os darwin; then ..." or "if linux gnu; then ..."
@@ -60,13 +53,13 @@ try() { "$1" && yay "$2" || err "Failure at $1"; }
 apt_packages() { 
   # TODO: Install each one in a loop, to better enable status tracking
   sudo apt-get update
-  for package in $debian_packages; do
+  for package in "${debian_packages[@]}"; do
     sudo apt-get install -y $package; 
   done
 }
 
 pip3_packages() { 
-  for package in $pip3_packages; do
+  for package in "${pip3_packages[@]}"; do
     pip3 install $package;
   done 
 }
