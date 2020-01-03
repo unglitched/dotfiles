@@ -4,7 +4,8 @@
 #
 # TODO: OSX install tasks
 # TODO: Custom git repos
-#
+# TODO: Get i3-gaps install for Debian working.
+# TODO: Better "custom app" management. Right now just dumping them into functions.
 
 
 
@@ -122,7 +123,7 @@ elif linux gnu; then
   fi
   if distro "Debian"; then
     log "Detected Kali, installing Kali specific packages..."
-    try i3_gaps_install "i3-gaps installed"
+    #try i3_gaps_install "i3-gaps installed"
   fi
   if distro "Kali"; then
     log "Detected Kali, installing Kali specific packages..."
