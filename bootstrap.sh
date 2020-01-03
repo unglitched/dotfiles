@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# This is a (new) barebones setup script for my systems.
+# This is a setup script for my systems.
 #
 # TODO: OSX install tasks
 # TODO: Custom git repos
@@ -90,7 +90,7 @@ if os darwin; then
   if ! exists brew; then
     log "Brew installed... This is where I'd install other programs, IF I HAD ANY!"
   else
-    log "Installing Brew...
+    log "Installing Brew..."
   fi 
   packager
 elif linux gnu; then
@@ -105,7 +105,7 @@ elif linux gnu; then
     log "Detected Kali, installing Kali specific packages..."
   fi
   if exists git; then
-    log "Grabbing dotfiles. Conflicts will be saved to ~/.config-backup/!"
+    log "Grabbing dotfiles. Conflicts will be saved to .config-backup"
     try dotfile_copy "Dotfile repo cloned."
   else
     err "git not detected, cannot gather dotfiles."
