@@ -4,19 +4,12 @@
 #
 # TODO: OSX install tasks
 # TODO: Custom git repos
-# TODO: Get i3-gaps install for Debian working.
 # TODO: Better "custom app" management. Right now just dumping them into functions.
-
-
-
-
-###  References  ###
-# https://serverfault.com/questions/144939/multi-select-menu-in-bash-script
 
 
 ###  Variables  ###
 dotfile_repo="https://www.github.com/qrbounty/dotfiles.git"
-text_bar="============================================================================="
+text_bar="~~~-----------------------------------------------------------~~~"
 
 ### Dependency Installation Variables ###
 declare -a debian_packages=("git" "python3" "python3-pip" "vim" "i3" "xorg" "suckless-tools" "xdm")
@@ -47,7 +40,7 @@ exists() { command -v "$1" >/dev/null 2>&1; }
 fmt() { printf "\n$text_bar\n$(date +'%H:%M:%S'):"; }
 err() { printf "$(fmt) $@\n" >&2; exit 1; }
 yay() { printf "$@\n"; }
-log() { printf "$(fmt) $@\n"; }
+log() { printf "$(fmt) $@\n$text_bar\n"; }
 try() { "$1" && yay "$2" || err "Failure at $1"; }
 
 debian_install() { 
@@ -55,7 +48,7 @@ debian_install() {
   sudo apt-get update
   for package in "${debian_packages[@]}"; do
     echo "Installing $package"
-    sudo apt-get install -y $package; 
+    sudo apt-get install -y $package > /dev/null; 
   done
   echo 'exec i3' > ~/.xsession
 }
@@ -63,7 +56,7 @@ debian_install() {
 pip3_packages() { 
   for package in "${pip3_packages[@]}"; do
     echo "Installing $package"
-    pip3 install $package;
+    pip3 install $package; > /dev/null
   done 
 }
 
@@ -71,7 +64,7 @@ config(){ /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@; }
 dotfile_copy(){
   [ ! -d "$HOME/.cfg" ] && mkdir $HOME/.cfg
   git clone --bare $dotfile_repo $HOME/.cfg
-  mkdir -p .config-backup
+  [ ! -d "$HOME/.config-backup"] && mkdir -p .config-backup
   config checkout
   if [ $? = 0 ]; then
     echo "Checked out config.";
@@ -85,9 +78,7 @@ dotfile_copy(){
 
 
 ###  Main  ###
-echo $text_bar
-echo "Bootstrap Script Version Zero"
-echo $text_bar
+log "Bootstrap Script Version Zero"
 
 if os darwin; then
   log "Detected OS: Darwin"
