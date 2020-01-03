@@ -19,8 +19,9 @@ text_bar="======================================================================
 
 ### Dependency Installation Variables ###
 declare -a debian_packages=("git" "python3" "python3-pip" "vim" "lxde")
-
 declare -a pip3_packages=("yara")
+i3gaps_packages="libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf xutils-dev libtool automake"
+
 
 ###  Functions  ###
 # Usage: "if os darwin; then ..." or "if linux gnu; then ..."
@@ -54,16 +55,33 @@ apt_packages() {
   # TODO: Install each one in a loop, to better enable status tracking
   sudo apt-get update
   for package in "${debian_packages[@]}"; do
+    echo "Installing $package"
     sudo apt-get install -y $package; 
   done
 }
 
 pip3_packages() { 
   for package in "${pip3_packages[@]}"; do
+    echo "Installing $package"
     pip3 install $package;
   done 
 }
 
+i3_gaps_install() {
+  sudo apt-get install -y $i3gaps_packages
+  cd /tmp
+  git clone https://www.github.com/Airblader/i3 i3-gaps
+  cd i3-gaps
+  git checkout gaps && git pull
+  autoreconf --force --install
+  rm -rf build
+  mkdir build
+  cd build
+  ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
+  make
+  sudo make install
+  cd $HOME
+}
 
 config(){ /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@; }
 dotfile_copy(){
@@ -101,6 +119,10 @@ elif linux gnu; then
     try apt_packages "System updated and packages installed"
     log "Installing pip3 packages..."
     try pip3_packages "Custom python packages installed"
+  fi
+  if distro "Debian"; then
+    log "Detected Kali, installing Kali specific packages..."
+    try i3_gaps_install "i3-gaps installed"
   fi
   if distro "Kali"; then
     log "Detected Kali, installing Kali specific packages..."
