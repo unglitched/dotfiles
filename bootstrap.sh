@@ -14,17 +14,18 @@
 
 
 ###  Variables  ###
-DOTFILE_REPO="https://www.github.com/qrbounty/dotfiles.git"
-BAR="============================================================================="
+dotfile_repo="https://www.github.com/qrbounty/dotfiles.git"
+text_bar="============================================================================="
 
 ### Dependency Installation Variables ###
-DEBIAN_PACKAGES=(
+debian_packages=(
   "git"
   "lxde"
 )
 
-PIP3="yara"
-
+pip3_packages=(
+  "yara"
+)
 
 ###  Functions  ###
 # Usage: "if os darwin; then ..." or "if linux gnu; then ..."
@@ -48,7 +49,7 @@ exists() { command -v "$1" >/dev/null 2>&1; }
 # Usage: "try command 'Worked!'"
 # Purpose: A more customizable variant of the claw "yell, die, try"
 # Source: https://stackoverflow.com/questions/1378274/in-a-bash-script-how-can-i-exit-the-entire-script-if-a-certain-condition-occurs
-fmt() { printf "\n$BAR\n$(date +'%H:%M:%S'):"; }
+fmt() { printf "\n$text_bar\n$(date +'%H:%M:%S'):"; }
 err() { printf "$(fmt) $@\n" >&2; exit 1; }
 yay() { printf "$@\n"; }
 log() { printf "$(fmt) $@\n"; }
@@ -56,11 +57,16 @@ try() { "$1" && yay "$2" || err "Failure at $1"; }
 
 apt_packages() { 
   # TODO: Install each one in a loop, to better enable status tracking
-  sudo apt-get update && sudo apt-get install -y $DEBIAN_APT; 
+  sudo apt-get update
+  for package in $debian_packages; do
+    sudo apt-get install -y $package; 
+  done
 }
 
 pip3_packages() { 
-  pip3 install $PIP3; 
+  for package in $pip3_packages; do
+    pip3 install $package;
+  done 
 }
 
 
@@ -81,9 +87,9 @@ dotfile_copy(){
 
 
 ###  Main  ###
-echo $BAR
+echo $text_bar
 echo "Bootstrap Script Version Zero"
-echo $BAR
+echo $text_bar
 
 if os darwin; then
   log "Detected OS: Darwin"
@@ -92,7 +98,6 @@ if os darwin; then
   else
     log "Installing Brew..."
   fi 
-  packager
 elif linux gnu; then
   log "Detected OS: Linux"
   if distro "Debian" || distro "Kali"; then
