@@ -19,10 +19,8 @@ dotfile_repo="https://www.github.com/qrbounty/dotfiles.git"
 text_bar="============================================================================="
 
 ### Dependency Installation Variables ###
-declare -a debian_packages=("git" "python3" "python3-pip" "vim" "lxde")
+declare -a debian_packages=("git" "python3" "python3-pip" "vim" "i3" "xorg" "suckless-tools" "xdm")
 declare -a pip3_packages=("yara")
-i3gaps_packages="libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf xutils-dev libtool automake"
-
 
 ###  Functions  ###
 # Usage: "if os darwin; then ..." or "if linux gnu; then ..."
@@ -52,13 +50,14 @@ yay() { printf "$@\n"; }
 log() { printf "$(fmt) $@\n"; }
 try() { "$1" && yay "$2" || err "Failure at $1"; }
 
-apt_packages() { 
+debian_install() { 
   # TODO: Install each one in a loop, to better enable status tracking
   sudo apt-get update
   for package in "${debian_packages[@]}"; do
     echo "Installing $package"
     sudo apt-get install -y $package; 
   done
+  echo ‘exec i3’ > ~/.xsession
 }
 
 pip3_packages() { 
@@ -66,22 +65,6 @@ pip3_packages() {
     echo "Installing $package"
     pip3 install $package;
   done 
-}
-
-i3_gaps_install() {
-  sudo apt-get install -y $i3gaps_packages
-  cd /tmp
-  git clone https://www.github.com/Airblader/i3 i3-gaps
-  cd i3-gaps
-  git checkout gaps && git pull
-  autoreconf --force --install
-  rm -rf build
-  mkdir build
-  cd build
-  ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
-  make
-  sudo make install
-  cd $HOME
 }
 
 config(){ /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@; }
@@ -115,18 +98,14 @@ if os darwin; then
   fi 
 elif linux gnu; then
   log "Detected OS: Linux"
-  if distro "Debian" || distro "Kali"; then
-    log "Installing system packages..."
-    try apt_packages "System updated and packages installed"
+  if distro "Debian"; then
+    log "Detected Distro: Debian"
+    try debian_install "Debian apps installed"
     log "Installing pip3 packages..."
     try pip3_packages "Custom python packages installed"
   fi
-  if distro "Debian"; then
-    log "Detected Kali, installing Kali specific packages..."
-    #try i3_gaps_install "i3-gaps installed"
-  fi
   if distro "Kali"; then
-    log "Detected Kali, installing Kali specific packages..."
+    log "Detected Distro: Kali"
   fi
   if exists git; then
     log "Grabbing dotfiles. Conflicts will be saved to .config-backup"
