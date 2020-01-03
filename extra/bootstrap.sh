@@ -12,7 +12,7 @@ dotfile_repo="https://www.github.com/qrbounty/dotfiles.git"
 text_bar="~~~-----------------------------------------------------------~~~"
 
 ### Dependency Installation Variables ###
-declare -a debian_packages=("git" "python3" "python3-pip" "vim" "i3" "xorg" "suckless-tools" "xdm")
+declare -a debian_packages=("git" "python3" "python3-pip" "vim" "i3" "xorg" "suckless-tools" "lightdm")
 declare -a pip3_packages=("yara")
 
 ###  Functions  ###
@@ -51,6 +51,7 @@ debian_install() {
     sudo apt-get install -y $package > /dev/null; 
   done
   echo 'exec i3' > ~/.xsession
+  update-alternatives --config x-session-manager
 }
 
 pip3_packages() { 
