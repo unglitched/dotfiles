@@ -50,7 +50,8 @@ debian_install() {
     echo "Installing $package"
     sudo apt-get install -y $package > /dev/null; 
   done
-  echo 'exec i3' > ~/.xsession
+  echo "Setting i3"
+  echo "exec i3" > $HOME/.xsession
   update-alternatives --config x-session-manager
 }
 
