@@ -48,7 +48,7 @@ debian_install() {
   sudo apt-get update > /dev/null
   for package in "${debian_packages[@]}"; do
     echo "Installing $package ..."
-    sudo apt-get install -y $package > /dev/null; 
+    sudo apt-get -qq -o Dpkg::Use-Pty=0 install -y $package > /dev/null; 
   done
   echo "Setting i3 as default WM"
   echo "exec i3" > $HOME/.xsession
@@ -66,7 +66,7 @@ config(){ /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@; }
 dotfile_copy(){
   [ ! -d "$HOME/.cfg" ] && mkdir $HOME/.cfg
   git clone --bare $dotfile_repo $HOME/.cfg
-  [ ! -d "$HOME/.config-backup"] && mkdir -p .config-backup
+  [ ! -d "$HOME/.config-backup" ] && mkdir -p .config-backup
   config checkout
   if [ $? = 0 ]; then
     echo "Checked out config.";
