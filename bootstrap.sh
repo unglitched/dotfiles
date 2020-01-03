@@ -57,7 +57,7 @@ debian_install() {
     echo "Installing $package"
     sudo apt-get install -y $package; 
   done
-  echo ‘exec i3’ > ~/.xsession
+  echo 'exec i3' > ~/.xsession
 }
 
 pip3_packages() { 
