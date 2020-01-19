@@ -46,7 +46,7 @@ exists() { command -v "$1" >/dev/null 2>&1; }
 error() { printf "$@\n" >&2; exit 1; }
 success() { printf "$@\n"; }
 log() { printf "$@\n"; }
-try() { log "$1" && "$2" && success "$3" || error "Failure at $1"; }
+try() { rulem "$1" && "$2" && success "$3" || error "Failure at $1"; }
 
 # Usage: "apt_install vim"
 # Purpose: Simple wrapper for quieter installs
@@ -64,12 +64,12 @@ debian_install() {
   echo 'exec i3' > ~/.xsession
   
   # VS Code install
-  echo "Installing VS Code"
+  rulem "Installing VS Code"
   curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
   sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
   sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
   apt_install apt-transport-https
-  sudo apt-get update
+  sudo apt-get update < /dev/null > /dev/null && echo "Packages updated"
   apt_install code
 }
 
@@ -98,16 +98,17 @@ dotfile_copy(){
 
 
 # Print a horizontal rule
+# Source: https://brettterpstra.com/2015/02/20/shell-trick-printf-rules/
 rule () { printf -v _hr "%*s" $(tput cols) && echo ${_hr// /${1--}}; }
 
 # Print a rule with a message in it
 rulem ()  {
-	if [ $# -eq 0 ]; then
-		echo "Usage: rulem MESSAGE [RULE_CHARACTER]"
-		return 1
-	fi
-	# Fill line with ruler character ($2, default "-"), reset cursor, move 2 cols right, print message
-	printf -v _hr "%*s" $(tput cols) && echo -en ${_hr// /${2--}} && echo -e "\r\033[2C$1"
+  if [ $# -eq 0 ]; then
+    echo "Usage: rulem MESSAGE [RULE_CHARACTER]"
+  return 1
+  fi
+  # Fill line with ruler character ($2, default "-"), reset cursor, move 2 cols right, print message
+  printf -v _hr "%*s" $(tput cols) && echo -en ${_hr// /${2--}} && echo -e "\r\033[2C$1"
 }
 
 alias right="printf '%*s' $(tput cols)"
