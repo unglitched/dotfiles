@@ -43,8 +43,8 @@ exists() { command -v "$1" >/dev/null 2>&1; }
 
 # Source: https://stackoverflow.com/questions/1378274/in-a-bash-script-how-can-i-exit-the-entire-script-if-a-certain-condition-occurs
 error() { printf "$@\n" >&2; exit 1; }
-success() { printf "$@\n"; }
-log() { printf "$@\n"; }
+success() { printf "$@\n\n"; }
+log() { rulem "$@\n" " "; }
 try() { log "$1" && "$2" && success "$3" || error "Failure at $1"; }
 
 # Usage: "apt_install vim"
