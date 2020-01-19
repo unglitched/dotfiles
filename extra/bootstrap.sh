@@ -115,7 +115,9 @@ alias right="printf '%*s' $(tput cols)"
 
 
 ###  Main  ###
-rulem "Bootstrap Script Version Zero" "~"
+rule "-"
+echo "Bootstrap Script Version Zero"
+rule "-"
 
 if os darwin; then
   if ! exists brew; then
