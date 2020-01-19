@@ -77,8 +77,8 @@ debian_install() {
 pip3_packages() { 
   declare -a pip3_packages=("yara")
   for package in "${pip3_packages[@]}"; do
-    echo "Installing $package"
-    pip3 install $package; > /dev/null
+    echo "Installing $package -----"
+    pip3 -q install $package; < /dev/null > /dev/null && echo "Installed!
   done 
 }
 
