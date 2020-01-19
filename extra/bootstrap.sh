@@ -97,17 +97,15 @@ dotfile_copy(){
 
 
 ###  Main  ###
-log "Bootstrap Script Version Zero"
+header "\n Bootstrap Script Version Zero \n"
 
 if os darwin; then
-  header "Detected OS: Darwin"
   if ! exists brew; then
     log "Brew installed... This is where I would install other programs, IF I HAD ANY!"
   else
     log "Installing Brew..."
   fi 
 elif linux gnu; then
-  log "Detected OS: Linux"
   if distro "Debian"; then
     header "Debian Customization"
     try "Installing Debian environment..." debian_install "Debian apps installed!"
