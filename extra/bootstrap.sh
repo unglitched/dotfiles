@@ -7,6 +7,7 @@
 # TODO: Add dry run functionality
 # TODO: Better "custom app" management. Right now just dumping them into functions.
 
+set -e
 
 ###  Variables  ###
 dotfile_repo="https://www.github.com/qrbounty/dotfiles.git"
@@ -50,9 +51,8 @@ try() { log "$1" && "$2" && yay "$3" || err "Failure at $1"; }
 # Usage: "apt_install vim"
 # Purpose: Simple wrapper for quieter installs
 apt_install() {
-  echo "Installing $1" 
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq $1 < /dev/null > /dev/null;
-  echo "$1 installed"
+  printf "Installing $1..." 
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq $1 < /dev/null > /dev/null && echo "$1 installed!"
 }
 
 debian_install() { 
