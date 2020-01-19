@@ -43,9 +43,7 @@ exists() { command -v "$1" >/dev/null 2>&1; }
 # Usage: "try command 'Worked!'"
 # Purpose: A more customizable variant of the claw "yell, die, try"
 # Source: https://stackoverflow.com/questions/1378274/in-a-bash-script-how-can-i-exit-the-entire-script-if-a-certain-condition-occurs
-header() { printf "\n$text_bar\n  $@  \n$text_bar\n" }
-date() { $(date +'%H:%M:%S'):"; }
-
+header() { printf "\n$text_bar\n  $@  \n$text_bar\n"; }
 error() { printf "$@\n" >&2; exit 1; }
 success() { printf "$@\n"; }
 log() { printf "$@\n"; }
