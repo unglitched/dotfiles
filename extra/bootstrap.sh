@@ -13,7 +13,6 @@ set -e
 
 ###  Variables  ###
 dotfile_repo="https://www.github.com/qrbounty/dotfiles.git"
-text_bar="~~~-----------------------------------------------------------~~~"
 
 ### Dependency Installation Variables ###
 declare -a debian_packages=("curl" "git" "python3" "python3-pip" "vim" "suckless-tools" "i3" "xorg" "xdm")
@@ -44,7 +43,9 @@ exists() { command -v "$1" >/dev/null 2>&1; }
 # Usage: "try command 'Worked!'"
 # Purpose: A more customizable variant of the claw "yell, die, try"
 # Source: https://stackoverflow.com/questions/1378274/in-a-bash-script-how-can-i-exit-the-entire-script-if-a-certain-condition-occurs
-header() { printf "\n$text_bar\n  $@  \n$text_bar\n"; }
+text_bar() { printf "%0*d\n" $COLUMNS 0; }
+
+printf "% *s\n" $COLUMNS "Installed!";
 error() { printf "$@\n" >&2; exit 1; }
 success() { printf "$@\n"; }
 log() { printf "$@\n"; }
@@ -66,6 +67,7 @@ debian_install() {
   echo 'exec i3' > ~/.xsession
   
   # VS Code install
+  echo "Installing VS Code"
   curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
   sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
   sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
@@ -98,8 +100,25 @@ dotfile_copy(){
 }
 
 
+# Print a horizontal rule
+rule () { printf -v _hr "%*s" $(tput cols) && echo ${_hr// /${1--}}; }
+
+# Print a rule with a message in it
+rulem ()  {
+	if [ $# -eq 0 ]; then
+		echo "Usage: rulem MESSAGE [RULE_CHARACTER]"
+		return 1
+	fi
+	# Fill line with ruler character ($2, default "-"), reset cursor, move 2 cols right, print message
+	printf -v _hr "%*s" $(tput cols) && echo -en ${_hr// /${2--}} && echo -e "\r\033[2C$1"
+}
+
+alias right="printf '%*s' $(tput cols)"
+
+
+
 ###  Main  ###
-header "\n Bootstrap Script Version Zero \n"
+rulem "Bootstrap Script Version Zero" "~"
 
 if os darwin; then
   if ! exists brew; then
@@ -109,15 +128,15 @@ if os darwin; then
   fi 
 elif linux gnu; then
   if distro "Debian"; then
-    header "Debian Customization"
+    rulem "Debian Customization" "~"
     try "Installing Debian environment..." debian_install "Debian apps installed!"
     try "Installing pip3 packages..." pip3_packages "Custom python packages installed!"
   fi
   if distro "Kali"; then
-    header "Kali Customization"
+    rulem "Kali Customization" "~"
   fi
   if exists git; then
-    header "Dotfile Installation"
+    rulem "Dotfile Installation" "~"
     try "Grabbing dotfiles. Conflicts will be saved to .config-backup..." dotfile_copy "Dotfile repo cloned"
   else
     err "git not detected, cannot gather dotfiles."
