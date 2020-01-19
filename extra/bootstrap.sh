@@ -48,11 +48,15 @@ log() { printf "$(fmt) $@\n$text_bar\n"; }
 try() { log "$1" && "$2" && yay "$3" || err "Failure at $1"; }
 
 
+apt_install() {
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq $1 < /dev/null > /dev/null;
+}
+
 debian_install() { 
   sudo apt-get update
   for package in "${debian_packages[@]}"; do
     echo "Installing $package"
-    sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq $package < /dev/null > /dev/null;
+    apt_install $package
   done
   echo 'exec i3' > ~/.xsession
   
@@ -60,9 +64,9 @@ debian_install() {
   curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
   sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
   sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-  sudo apt-get install apt-transport-https
+  apt_install apt-transport-https
   sudo apt-get update
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq code < /dev/null > /dev/null;
+  apt_install code
 }
 
 pip3_packages() { 
