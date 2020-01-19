@@ -104,7 +104,7 @@ log "Bootstrap Script Version Zero"
 if os darwin; then
   header "Detected OS: Darwin"
   if ! exists brew; then
-    log "Brew installed... This is where I'd install other programs, IF I HAD ANY!"
+    log "Brew installed... This is where I would install other programs, IF I HAD ANY!"
   else
     log "Installing Brew..."
   fi 
