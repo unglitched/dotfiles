@@ -4,6 +4,7 @@
 #
 # TODO: OSX install tasks
 # TODO: Custom git repos
+# TODO: Convert for sudo usage instead of having sudo commands within. See $SUDO_USER
 # TODO: Add dry run functionality
 # TODO: Force Debian front-end to be reset to xdm
 # TODO: Better "custom app" management. Right now just dumping them into functions.
