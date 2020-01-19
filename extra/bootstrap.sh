@@ -5,6 +5,7 @@
 # TODO: OSX install tasks
 # TODO: Custom git repos
 # TODO: Add dry run functionality
+# TODO: Force Debian front-end to be reset to xdm
 # TODO: Better "custom app" management. Right now just dumping them into functions.
 
 set -e
@@ -42,11 +43,13 @@ exists() { command -v "$1" >/dev/null 2>&1; }
 # Usage: "try command 'Worked!'"
 # Purpose: A more customizable variant of the claw "yell, die, try"
 # Source: https://stackoverflow.com/questions/1378274/in-a-bash-script-how-can-i-exit-the-entire-script-if-a-certain-condition-occurs
-fmt() { printf "\n$text_bar\n$(date +'%H:%M:%S'):"; }
-err() { printf "$(fmt) $@\n" >&2; exit 1; }
-yay() { printf "$@\n"; }
+header() { printf "\n$text_bar\n  $@  \n$text_bar\n" }
+date() { $(date +'%H:%M:%S'):"; }
+
+error() { printf "$@\n" >&2; exit 1; }
+success() { printf "$@\n"; }
 log() { printf "$@\n"; }
-try() { log "$1" && "$2" && yay "$3" || err "Failure at $1"; }
+try() { log "$1" && "$2" && success "$3" || error "Failure at $1"; }
 
 # Usage: "apt_install vim"
 # Purpose: Simple wrapper for quieter installs
@@ -99,7 +102,7 @@ dotfile_copy(){
 log "Bootstrap Script Version Zero"
 
 if os darwin; then
-  log "Detected OS: Darwin"
+  header "Detected OS: Darwin"
   if ! exists brew; then
     log "Brew installed... This is where I'd install other programs, IF I HAD ANY!"
   else
@@ -108,14 +111,15 @@ if os darwin; then
 elif linux gnu; then
   log "Detected OS: Linux"
   if distro "Debian"; then
-    log "Detected Distro: Debian"
+    header "Debian Customization"
     try "Installing Debian environment..." debian_install "Debian apps installed!"
     try "Installing pip3 packages..." pip3_packages "Custom python packages installed!"
   fi
   if distro "Kali"; then
-    log "Detected Distro: Kali"
+    header "Kali Customization"
   fi
   if exists git; then
+    header "Dotfile Installation"
     try "Grabbing dotfiles. Conflicts will be saved to .config-backup..." dotfile_copy "Dotfile repo cloned"
   else
     err "git not detected, cannot gather dotfiles."
