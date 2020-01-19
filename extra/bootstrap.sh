@@ -49,12 +49,15 @@ try() { log "$1" && "$2" && yay "$3" || err "Failure at $1"; }
 
 # Usage: "apt_install vim"
 # Purpose: Simple wrapper for quieter installs
-apt_install() {sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq $1 < /dev/null > /dev/null; }
+apt_install() {
+  echo "Installing $1" 
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq $1 < /dev/null > /dev/null;
+  echo "$1 installed"
+}
 
 debian_install() { 
   sudo apt-get update
   for package in "${debian_packages[@]}"; do
-    echo "Installing $package"
     apt_install $package
   done
   echo 'exec i3' > ~/.xsession
