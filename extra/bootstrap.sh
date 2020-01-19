@@ -52,15 +52,16 @@ try() { log "$1" && "$2" && success "$3" || error "Failure at $1"; }
 # Usage: "apt_install vim"
 # Purpose: Simple wrapper for quieter installs
 apt_install() {
-  printf "Installing $1..." 
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq $1 < /dev/null > /dev/null && echo "$1 installed!"
+  printf "Installing package $1 / " 
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq $1 < /dev/null > /dev/null && echo "Installed!"
 }
 
 debian_install() { 
-  sudo apt-get update
+  sudo apt-get update < /dev/null > /dev/null && echo "Packages updated"
   for package in "${debian_packages[@]}"; do
     apt_install $package
   done
+  sudo dpkg-reconfigure xdm
   echo 'exec i3' > ~/.xsession
   
   # VS Code install
