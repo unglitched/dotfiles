@@ -13,8 +13,7 @@ dotfile_repo="https://www.github.com/qrbounty/dotfiles.git"
 text_bar="~~~-----------------------------------------------------------~~~"
 
 ### Dependency Installation Variables ###
-declare -a debian_packages=("git" "python3" "python3-pip" "vim" "suckless-tools")
-declare -a i3_packages=("i3" "xorg" "xdm")
+declare -a debian_packages=("git" "python3" "python3-pip" "vim" "suckless-tools" "i3" "xorg" "xdm")
 declare -a pip3_packages=("yara")
 
 
@@ -53,7 +52,7 @@ debian_install() {
   sudo apt-get update
   for package in "${debian_packages[@]}"; do
     echo "Installing $package"
-    sudo apt-get install -y $package > /dev/null; 
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq $package < /dev/null > /dev/null;
   done
   echo 'exec i3' > ~/.xsession
 }
@@ -96,9 +95,8 @@ elif linux gnu; then
   log "Detected OS: Linux"
   if distro "Debian"; then
     log "Detected Distro: Debian"
-    try "Installing Debian base apps..." debian_install "Debian apps installed"
-    try "Installing i3 + xdm environment..." 
-    try "Installing pip3 packages..." pip3_packages "Custom python packages installed"
+    try "Installing Debian environment..." debian_install "Debian apps installed!"
+    try "Installing pip3 packages..." pip3_packages "Custom python packages installed!"
   fi
   if distro "Kali"; then
     log "Detected Distro: Kali"
