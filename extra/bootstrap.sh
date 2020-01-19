@@ -45,7 +45,7 @@ exists() { command -v "$1" >/dev/null 2>&1; }
 fmt() { printf "\n$text_bar\n$(date +'%H:%M:%S'):"; }
 err() { printf "$(fmt) $@\n" >&2; exit 1; }
 yay() { printf "$@\n"; }
-log() { printf "$(fmt) $@\n$text_bar\n"; }
+log() { printf "$@\n"; }
 try() { log "$1" && "$2" && yay "$3" || err "Failure at $1"; }
 
 # Usage: "apt_install vim"
