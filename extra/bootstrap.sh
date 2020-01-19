@@ -17,7 +17,6 @@ dotfile_repo="https://www.github.com/qrbounty/dotfiles.git"
 # Print a horizontal rule
 # Source: https://brettterpstra.com/2015/02/20/shell-trick-printf-rules/
 rule () { printf -v _hr "%*s" $(tput cols) && echo ${_hr// /${1--}}; }
-right() { "printf '%*s' $(tput cols)"; }
 # Print a rule with a message in it
 rulem ()  {
   if [ $# -eq 0 ]; then
@@ -45,13 +44,13 @@ exists() { command -v "$1" >/dev/null 2>&1; }
 # Source: https://stackoverflow.com/questions/1378274/in-a-bash-script-how-can-i-exit-the-entire-script-if-a-certain-condition-occurs
 error() { printf "$@\n" >&2; exit 1; }
 success() { printf "$@\n"; }
-log() { printf "-- $@\n"; }
+log() { printf "$@\n"; }
 try() { log "$1" && "$2" && success "$3" || error "Failure at $1"; }
 
 # Usage: "apt_install vim"
 apt_install() {
-  printf "Installing package $1 / " 
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq $1 < /dev/null > /dev/null && right "Installed!"
+  printf "Installing package $1 ----- " 
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq $1 < /dev/null > /dev/null && echo "Installed!"
 }
 
 ### Installer Functions ###
