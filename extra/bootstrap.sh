@@ -52,7 +52,7 @@ try() { log "$1" && "$2" && success "$3" || error "Failure at $1"; }
 # Purpose: Simple wrapper for quieter installs
 apt_install() {
   printf "Installing package $1 / " 
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq $1 < /dev/null > /dev/null && echo "Installed!"
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq $1 < /dev/null > /dev/null && right "Installed!"
 }
 
 debian_install() { 
