@@ -47,10 +47,9 @@ yay() { printf "$@\n"; }
 log() { printf "$(fmt) $@\n$text_bar\n"; }
 try() { log "$1" && "$2" && yay "$3" || err "Failure at $1"; }
 
-
-apt_install() {
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq $1 < /dev/null > /dev/null;
-}
+# Usage: "apt_install vim"
+# Purpose: Simple wrapper for quieter installs
+apt_install() {sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq $1 < /dev/null > /dev/null; }
 
 debian_install() { 
   sudo apt-get update
