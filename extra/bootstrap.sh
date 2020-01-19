@@ -102,7 +102,7 @@ dotfile_copy(){
 
 ###  Main  ###
 rule "-"
-printf "\nBootstrap Script Version Zero\n"
+printf "Bootstrap Script Version Zero\n"
 rule "-"
 printf "\n"
 
