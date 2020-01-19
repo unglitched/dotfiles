@@ -13,7 +13,7 @@ dotfile_repo="https://www.github.com/qrbounty/dotfiles.git"
 text_bar="~~~-----------------------------------------------------------~~~"
 
 ### Dependency Installation Variables ###
-declare -a debian_packages=("git" "python3" "python3-pip" "vim" "suckless-tools" "i3" "xorg" "xdm")
+declare -a debian_packages=("curl" "git" "python3" "python3-pip" "vim" "suckless-tools" "i3" "xorg" "xdm")
 declare -a pip3_packages=("yara")
 
 
@@ -55,6 +55,14 @@ debian_install() {
     sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq $package < /dev/null > /dev/null;
   done
   echo 'exec i3' > ~/.xsession
+  
+  # VS Code install
+  curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+  sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
+  sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+  sudo apt-get install apt-transport-https
+  sudo apt-get update
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq code < /dev/null > /dev/null;
 }
 
 pip3_packages() { 
