@@ -125,7 +125,7 @@ printf "THIS WILL OVERWRITE LOCAL FILES! This is for FRESHLY INSTALLED systems o
 rulem "!!!WARNING!!!" "#"
 select yn in "Yes" "No"; do
     case $yn in
-        Yes ) echo "Starting...";;
+        Yes ) break;;
         No ) exit;;
     esac
 done
