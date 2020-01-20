@@ -121,8 +121,11 @@ rule "-"
 printf "\n"
 
 rulem "!!!WARNING!!!" "#"
-printf "THIS WILL OVERWRITE LOCAL FILES! This is for FRESHLY INSTALLED systems only! Continue?"
+echo "WARNING: THIS WILL OVERWRITE LOCAL FILES!"
+echo "This is for FRESHLY INSTALLED systems only!"
 rulem "!!!WARNING!!!" "#"
+
+echo "Really continue?"
 select yn in "Yes" "No"; do
     case $yn in
         Yes ) break;;
