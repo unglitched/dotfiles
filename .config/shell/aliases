@@ -1,0 +1,14 @@
+# Aliases file - contains bash/zsh aliases
+
+# Repeat the last command, but sudo it...
+alias fuck='sudo $(fc -ln -1)'
+
+# Copy last command to clipboard
+alias yank='echo $(fc -ln -1) | xclip -selection clipboard'
+
+# List all fonts
+alias fonts='fc-list | cut -d ":" -f 1 | sort'
+
+# Quick file edits
+alias conf-aliases='vim $HOME/.config/shell/aliases'
+alias conf-functions='vim $HOME/.config/shell/functions'
