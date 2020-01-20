@@ -44,10 +44,9 @@ exists() { command -v "$1" >/dev/null 2>&1; }
 # Source: https://stackoverflow.com/questions/1378274/in-a-bash-script-how-can-i-exit-the-entire-script-if-a-certain-condition-occurs
 error() { printf "$@\n" >&2; exit 1; }
 success() { printf "$@\n\n"; }
-log() { rulem "$@\n" " "; }
+log() { printf "$@\n"; }
 try() { log "$1" && "$2" && success "$3" || error "Failure at $1"; }
 
-# Usage: "apt_install vim"
 apt_install() {
   printf "Installing package $1 ----- " 
   sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq $1 < /dev/null > /dev/null && echo "Installed!"
@@ -115,15 +114,15 @@ if os darwin; then
 elif linux gnu; then
   if distro "Debian"; then
     rulem "Debian Customization" "~"
-    try "Installing Debian environment..." debian_install "Debian environment set up!"
-    try "Installing pip3 packages..." pip3_packages "Custom python packages installed!"
+    try "Installing Debian software" debian_install "Debian software set up!"
+    try "Installing pip3 packages" pip3_packages "Custom python packages installed!"
   fi
   if distro "Kali"; then
     rulem "Kali Customization" "~"
   fi
   if exists git; then
     rulem "Dotfile Installation" "~"
-    try "Grabbing dotfiles. Conflicts will be saved to .config-backup..." dotfile_copy "Dotfile repo cloned"
+    try "Grabbing dotfiles. Conflicts will be saved to .config-backup" dotfile_copy "Dotfile repo cloned"
   else
     err "git not detected, cannot gather dotfiles."
   fi
