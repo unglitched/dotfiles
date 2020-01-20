@@ -56,12 +56,15 @@ apt_install() {
 
 debian_install() { 
   sudo apt-get update < /dev/null > /dev/null && echo "Packages updated"
-  declare -a debian_packages=("curl" "git" "python3" "python3-pip" "vim" "suckless-tools" "i3" "i3blocks" "xorg" "lightdm" "dmenu" "rofi" "open-vm-tools")
+  declare -a debian_packages=("curl" "git" "python3" "python3-pip" "vim" "suckless-tools" "i3" "i3blocks" "zsh" "xorg" "tmux" "lightdm" "rofi" "open-vm-tools")
   for package in "${debian_packages[@]}"; do
     apt_install $package
   done
   sudo dpkg-reconfigure lightdm
   echo 'exec i3' > ~/.xsession
+  
+  # Zsh config
+  wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh && cp $HOME/.oh-my-zsh/templates/zshrc.zsh-template $HOME/.zshrc
   
   # VS Code install
   rulem "Installing VS Code"
