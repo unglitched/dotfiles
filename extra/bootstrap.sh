@@ -86,6 +86,7 @@ debian_install() {
   apt_install apt-transport-https
   apt-get update < /dev/null > /dev/null && echo "Packages updated"
   apt_install code
+  rm packages.microsoft.gpg
 }
 
 pip3_packages() { 
@@ -160,6 +161,7 @@ fi
 rule "~"
 echo "Installation has finished. Restart system?"
 rule "~"
+rm bootstrap.sh
 select yn in "Yes" "No"; do
     case $yn in
         Yes ) reboot;;
