@@ -64,7 +64,10 @@ debian_install() {
   echo 'exec i3' > ~/.xsession
   
   # Zsh config
-  wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh && cp $HOME/.oh-my-zsh/templates/zshrc.zsh-template $HOME/.zshrc
+  rulem "Installing Oh My Zsh"
+  wget -s https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh < /dev/null > /dev/null
+  cp $HOME/.oh-my-zsh/templates/zshrc.zsh-template $HOME/.zshrc
+  chsh -s /bin/zsh
   
   # VS Code install
   rulem "Installing VS Code"
