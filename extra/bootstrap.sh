@@ -8,9 +8,15 @@
 # TODO: Add dry run functionality
 # TODO: Move open-vm-tools package to an installer that will actually detect if it's a VM...
 # TODO: Better "custom app" management. Right now just dumping them into functions.
-
 set -e
+
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root using sudo. User-specific data will be assigned to the user you are sudoing from."
+  exit
+fi
+
 dotfile_repo="https://www.github.com/qrbounty/dotfiles.git"
+user_home=$(getent passwd $SUDO_USER | cut -d: -f6)
 
 
 ### Helpers / Formatters ###
@@ -49,33 +55,33 @@ try() { log "$1" && "$2" && success "$3" || error "Failure at $1"; }
 
 apt_install() {
   printf "Installing package $1 ----- " 
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq $1 < /dev/null > /dev/null && echo "Installed!"
+  DEBIAN_FRONTEND=noninteractive apt-get install -qq $1 < /dev/null > /dev/null && echo "Installed!"
 }
 
 ### Installer Functions ###
 
 debian_install() { 
-  sudo apt-get update < /dev/null > /dev/null && echo "Packages updated"
+  apt-get update < /dev/null > /dev/null && echo "Packages updated"
   declare -a debian_packages=("curl" "git" "python3" "python3-pip" "vim" "suckless-tools" "i3" "i3blocks" "zsh" "xorg" "tmux" "lightdm" "rofi" "open-vm-tools")
   for package in "${debian_packages[@]}"; do
     apt_install $package
   done
-  sudo dpkg-reconfigure lightdm
-  echo 'exec i3' > ~/.xsession
+  dpkg-reconfigure lightdm
+  echo 'exec i3' > $user_home/.xsession
   
   # Zsh config
   rulem "Installing Oh My Zsh"
-  wget -q https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O - | sh > /dev/null
-  cp $HOME/.oh-my-zsh/templates/zshrc.zsh-template $HOME/.zshrc
-  chsh -s /bin/zsh
+  /bin/su -c "wget -q https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O - | sh > /dev/null" - $SUDO_USER
+  cp $user_home/.oh-my-zsh/templates/zshrc.zsh-template $user_home/.zshrc
+  chsh -s /bin/zsh $SUDO_USER
   
   # VS Code install
   rulem "Installing VS Code"
   curl -s https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-  sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
-  sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+  install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
+  sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
   apt_install apt-transport-https
-  sudo apt-get update < /dev/null > /dev/null && echo "Packages updated"
+  apt-get update < /dev/null > /dev/null && echo "Packages updated"
   apt_install code
 }
 
@@ -88,17 +94,17 @@ pip3_packages() {
 }
 
 ### Dotfile Stuff ###
-config(){ /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@; }
+config(){ /usr/bin/git --git-dir=$user_home/.cfg/ --work-tree=$user_home $@; }
 dotfile_copy(){
-  [ ! -d "$HOME/.cfg" ] && mkdir $HOME/.cfg
-  git clone --bare $dotfile_repo $HOME/.cfg
-  [ ! -d "$HOME/.config-backup" ] && mkdir -p .config-backup
+  [ ! -d "$user_home/.cfg" ] && mkdir $user_home/.cfg
+  git clone --bare $dotfile_repo $user_home/.cfg
+  [ ! -d "$user_home/.config-backup" ] && mkdir -p .config-backup
   config checkout
   if [ $? = 0 ]; then
     echo "Checked out config.";
   else
     echo "Backing up pre-existing dot files.";
-    config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv $HOME/{} $HOME/.config-backup/{}
+    config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv $user_home/{} $user_home/.config-backup/{}
   fi;
   config checkout
   config config status.showUntrackedFiles no
