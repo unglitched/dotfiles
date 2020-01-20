@@ -107,7 +107,7 @@ dotfile_copy(){
     echo "Checked out config.";
   else
     echo "Backing up pre-existing dot files.";
-    config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv $user_home/{} $user_home/.config-backup/{}
+    config checkout -f 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv $user_home/{} $user_home/.config-backup/{}
   fi;
   config checkout
   config config status.showUntrackedFiles no
