@@ -116,7 +116,7 @@ dotfile_copy(){
 
 ###  Main  ###
 rule "-"
-printf "QRBounty's System Bootstrap Script Version 1.0\n"
+printf "QRBounty's System Bootstrap Script Version 1.1\n"
 rule "-"
 printf "\n"
 
