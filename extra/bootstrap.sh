@@ -102,12 +102,12 @@ dotfile_copy(){
   [ ! -d "$user_home/.cfg" ] && mkdir $user_home/.cfg
   git clone --bare $dotfile_repo $user_home/.cfg
   [ ! -d "$user_home/.config-backup" ] && mkdir -p .config-backup
-  config checkout
+  config checkout -f
   if [ $? = 0 ]; then
     echo "Checked out config.";
   else
     echo "Backing up pre-existing dot files.";
-    config checkout -f 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv $user_home/{} $user_home/.config-backup/{}
+    config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv $user_home/{} $user_home/.config-backup/{}
   fi;
   config checkout
   config config status.showUntrackedFiles no
