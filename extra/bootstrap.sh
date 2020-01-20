@@ -122,8 +122,8 @@ rule "-"
 printf "\n"
 
 rulem "!!!WARNING!!!" "#"
-echo "WARNING: THIS WILL OVERWRITE LOCAL FILES!"
-echo "This is for FRESHLY INSTALLED systems only!"
+printf "\nWARNING: THIS WILL OVERWRITE LOCAL FILES!"
+printf "\nThis is for FRESHLY INSTALLED systems only!\n"
 rulem "!!!WARNING!!!" "#"
 
 echo "Really continue?"
@@ -161,8 +161,7 @@ fi
 rule "~"
 echo "Installation has finished. Restart system?"
 rule "~"
-rm $user_home/bootstrap.sh
-rm $user_home/extra/bootstrap.sh
+
 select yn in "Yes" "No"; do
     case $yn in
         Yes ) reboot;;
