@@ -142,3 +142,13 @@ elif linux gnu; then
     err "git not detected, cannot gather dotfiles."
   fi
 fi
+
+rule "~"
+echo "Installation has finished. Restart system?"
+rule "~"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) reboot;;
+        No ) exit;;
+    esac
+done
