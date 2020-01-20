@@ -161,7 +161,8 @@ fi
 rule "~"
 echo "Installation has finished. Restart system?"
 rule "~"
-rm bootstrap.sh
+rm $user_home/bootstrap.sh
+rm $user_home/extra/bootstrap.sh
 select yn in "Yes" "No"; do
     case $yn in
         Yes ) reboot;;
