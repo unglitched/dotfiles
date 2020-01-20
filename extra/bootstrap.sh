@@ -65,8 +65,7 @@ debian_install() {
   
   # Zsh config
   rulem "Installing Oh My Zsh"
-  wget -q https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh < /dev/null > /dev/null
-  cp $HOME/.oh-my-zsh/templates/zshrc.zsh-template $HOME/.zshrc
+  wget -q https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh && cp $HOME/.oh-my-zsh/templates/zshrc.zsh-template $HOME/.zshrc
   chsh -s /bin/zsh
   
   # VS Code install
