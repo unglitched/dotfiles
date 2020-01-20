@@ -1,0 +1,7 @@
+# Bash/Zsh functions to be loaded via higher level configs.
+
+# Setup the dotfiles management shortcut
+config(){ /usr/bin/git --git-dir=$user_home/.cfg/ --work-tree=$user_home $@; }
+
+# Kill whatever is occupying a certain port
+portslay () { kill -9 `lsof -i tcp:$1 | tail -1 | awk '{ print $2;}'`; }
