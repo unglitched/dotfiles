@@ -73,7 +73,7 @@ debian_install() {
   /bin/su -c "wget -q https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O - | sh > /dev/null" - $SUDO_USER
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $user_home/.oh-my-zsh/custom/themes/powerlevel10k > /dev/null
   cp $user_home/.oh-my-zsh/templates/zshrc.zsh-template $user_home/.zshrc
-  sed '/ZSH_THEME/d' $user_home/.zshrc > $user_home/.zshrc
+  sed -i '/ZSH_THEME/d' $user_home/.zshrc
   echo "ZSH_THEME=\"powerlevel10k/powerlevel10k\"" >> $user_home/.zshrc
   echo "POWERLEVEL9K_MODE=\"awesome-patched\"" >> $user_home/.zshrc
   chsh -s /bin/zsh $SUDO_USER
