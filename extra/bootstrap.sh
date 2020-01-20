@@ -6,7 +6,7 @@
 # TODO: Custom git repos
 # TODO: Convert for sudo usage instead of having sudo commands within. See $SUDO_USER
 # TODO: Add dry run functionality
-# TODO: Force Debian front-end to be reset to xdm
+# TODO: Move open-vm-tools package to an installer that will actually detect if it's a VM...
 # TODO: Better "custom app" management. Right now just dumping them into functions.
 
 set -e
@@ -56,7 +56,7 @@ apt_install() {
 
 debian_install() { 
   sudo apt-get update < /dev/null > /dev/null && echo "Packages updated"
-  declare -a debian_packages=("curl" "git" "python3" "python3-pip" "vim" "suckless-tools" "i3" "i3blocks" "xorg" "lightdm" "dmenu" "rofi")
+  declare -a debian_packages=("curl" "git" "python3" "python3-pip" "vim" "suckless-tools" "i3" "i3blocks" "xorg" "lightdm" "dmenu" "rofi" "open-vm-tools")
   for package in "${debian_packages[@]}"; do
     apt_install $package
   done
