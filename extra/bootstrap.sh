@@ -21,9 +21,9 @@ user_home=$(getent passwd $SUDO_USER | cut -d: -f6)
 ### Helpers / Formatters ###
 # Print a horizontal rule
 # Source: https://brettterpstra.com/2015/02/20/shell-trick-printf-rules/
-rule () { printf -v _hr "%*s" $(tput cols) && echo ${_hr// /${1--}}; }
+rule() { printf -v _hr "%*s" $(tput cols) && echo ${_hr// /${1--}}; }
 # Print a rule with a message in it
-rulem ()  {
+rulem() {
   if [ $# -eq 0 ]; then
     echo "Usage: rulem MESSAGE [RULE_CHARACTER]"
   return 1
@@ -33,9 +33,9 @@ rulem ()  {
 }
 
 # Source: Modified from https://stackoverflow.com/questions/394230/how-to-detect-the-os-from-a-bash-script 
-os () { [[ $OSTYPE == *$1* ]]; }
-distro () { [[ $(cat /etc/*-release | grep -w NAME | cut -d= -f2 | tr -d '"') == *$1* ]]; }
-linux () { 
+os() { [[ $OSTYPE == *$1* ]]; }
+distro() { [[ $(cat /etc/*-release | grep -w NAME | cut -d= -f2 | tr -d '"') == *$1* ]]; }
+linux() { 
   case "$OSTYPE" in
     *linux*|*hurd*|*msys*|*cygwin*|*sua*|*interix*) sys="gnu";;
     *bsd*|*darwin*) sys="bsd";;
