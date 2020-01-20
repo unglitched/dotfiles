@@ -74,8 +74,8 @@ debian_install() {
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $user_home/.oh-my-zsh/custom/themes/powerlevel10k > /dev/null
   cp $user_home/.oh-my-zsh/templates/zshrc.zsh-template $user_home/.zshrc
   sed '/ZSH_THEME/d' $user_home/.zshrc > $user_home/.zshrc
-  echo "ZSH_THEME=\"powerlevel10k/powerlevel10k\"" > /dev/null | tee -a $user_home/.zshrc
-  echo "POWERLEVEL9K_MODE=\"awesome-patched\"" > /dev/null | tee -a $user_home/.zshrc
+  echo "ZSH_THEME=\"powerlevel10k/powerlevel10k\"" >> tee -a $user_home/.zshrc
+  echo "POWERLEVEL9K_MODE=\"awesome-patched\"" >> $user_home/.zshrc
   chsh -s /bin/zsh $SUDO_USER
   
   # VS Code install
