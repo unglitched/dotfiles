@@ -56,7 +56,7 @@ apt_install() {
 
 debian_install() { 
   sudo apt-get update < /dev/null > /dev/null && echo "Packages updated"
-  declare -a debian_packages=("curl" "git" "python3" "python3-pip" "vim" "suckless-tools" "i3" "xorg" "lightdm")
+  declare -a debian_packages=("curl" "git" "python3" "python3-pip" "vim" "suckless-tools" "i3" "i3blocks" "xorg" "lightdm" "dmenu" "rofi")
   for package in "${debian_packages[@]}"; do
     apt_install $package
   done
