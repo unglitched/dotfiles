@@ -56,11 +56,11 @@ apt_install() {
 
 debian_install() { 
   sudo apt-get update < /dev/null > /dev/null && echo "Packages updated"
-  declare -a debian_packages=("curl" "git" "python3" "python3-pip" "vim" "suckless-tools" "i3" "xorg" "xdm")
+  declare -a debian_packages=("curl" "git" "python3" "python3-pip" "vim" "suckless-tools" "i3" "xorg" "lightdm")
   for package in "${debian_packages[@]}"; do
     apt_install $package
   done
-  sudo dpkg-reconfigure xdm
+  sudo dpkg-reconfigure lightdm
   echo 'exec i3' > ~/.xsession
   
   # VS Code install
