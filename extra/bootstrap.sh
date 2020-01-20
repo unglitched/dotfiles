@@ -120,6 +120,17 @@ printf "QRBounty's System Bootstrap Script Version 1.0\n"
 rule "-"
 printf "\n"
 
+rulem "!!!WARNING!!!" "#"
+printf "THIS WILL OVERWRITE LOCAL FILES! This is for FRESHLY INSTALLED systems only! Continue?"
+rulem "!!!WARNING!!!" "#"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) echo "Starting...";;
+        No ) exit;;
+    esac
+done
+
+
 if os darwin; then
   if ! exists brew; then
     log "Brew installed... This is where I would install other programs, IF I HAD ANY!"
