@@ -10,5 +10,7 @@ alias yank='echo $(fc -ln -1) | xclip -selection clipboard'
 alias fonts='fc-list | cut -d ":" -f 1 | sort'
 
 # Quick file edits
-alias conf-aliases='vim $HOME/.config/shell/aliases'
-alias conf-functions='vim $HOME/.config/shell/functions'
+alias conf-aliases='$EDITOR $HOME/.config/shell/aliases'
+alias conf-functions='$EDITOR $HOME/.config/shell/functions'
+alias conf-kitty='$EDITOR $HOME/.config/kitty/kitty.conf'
+alias conf-i3='$EDITOR $HOME/.config/i3/config'
