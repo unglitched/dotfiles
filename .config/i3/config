@@ -43,15 +43,6 @@ set $ws8  "8:  "
 set $ws9  "9:  "
 set $ws10 "10:  "
 
-general {
-   colors = true
-   color_good = $darkgreen
-   color_degraded = $darkyellow
-   color_bad = $darkred
-   output_format = i3bar
-   interval = 5
-}
-
 bar {
     status_command i3status
     font pango:Hack, FontAwesome, PowerlineSymbols 12
