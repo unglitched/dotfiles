@@ -3,6 +3,9 @@
 # Repeat the last command, but sudo it...
 alias fuck='sudo $(fc -ln -1)'
 
+# Let me reboot!
+alias reboot='sudo reboot'
+
 # Copy last command to clipboard
 alias yank='echo $(fc -ln -1) | xclip -selection clipboard'
 
