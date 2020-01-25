@@ -5,3 +5,6 @@ config(){ /usr/bin/git --git-dir=$user_home/.cfg/ --work-tree=$user_home $@; }
 
 # Kill whatever is occupying a certain port
 portslay(){ kill -9 `lsof -i tcp:$1 | tail -1 | awk '{ print $2;}'`; }
+
+# Only display uncommented lines in a file
+livecat(){ cat $1 | grep -v "#"; }
