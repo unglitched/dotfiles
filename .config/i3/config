@@ -27,7 +27,7 @@ bar {
         status_command i3status
         font pango:Hack, FontAwesome 10
         strip_workspace_numbers yes
-        separator_symbol "/"
+        separator_symbol ""
 }
 
 ### End Custom Things ###
