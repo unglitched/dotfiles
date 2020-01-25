@@ -14,3 +14,6 @@ alias conf-aliases='$EDITOR $HOME/.config/shell/aliases'
 alias conf-functions='$EDITOR $HOME/.config/shell/functions'
 alias conf-kitty='$EDITOR $HOME/.config/kitty/kitty.conf'
 alias conf-i3='$EDITOR $HOME/.config/i3/config'
+
+# Application drop-ins
+alias cat=bat
