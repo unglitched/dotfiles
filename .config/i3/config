@@ -5,8 +5,28 @@
 
 ### Custom Things ###
 set $mod Mod4
-
 font pango:Hack 12, FontAwesome
+
+# Colors
+set_from_resource $darkred     color1  #000000
+set_from_resource $red         color9  #000000
+set_from_resource $darkgreen   color2  #000000
+set_from_resource $green       color10 #000000
+set_from_resource $darkyellow  color3  #000000
+set_from_resource $yellow      color11 #000000
+set_from_resource $darkblue    color4  #000000
+set_from_resource $blue        color12 #000000
+set_from_resource $darkmagenta color5  #000000
+set_from_resource $magenta     color13 #000000
+set_from_resource $darkcyan    color6  #000000
+set_from_resource $cyan        color14 #000000
+set_from_resource $darkwhite   color7  #000000
+set_from_resource $white       color15 #000000
+# Use custom colors for black
+set $black       #282828
+set $darkblack   #1d2021
+set $transparent #00000000
+
 
 # set desktop background
 exec --no-startup-id feh --randomize --bg-scale ~/Pictures/Wallpapers/*
@@ -23,12 +43,42 @@ set $ws8  "8:  "
 set $ws9  "9:  "
 set $ws10 "10:  "
 
-bar {
-        status_command i3status
-        font pango:Hack, FontAwesome 10
-        strip_workspace_numbers yes
-        separator_symbol ""
+general {
+   colors = true
+   color_good = $darkgreen
+   color_degraded = $darkyellow
+   color_bad = $darkred
+   output_format = i3bar
+   interval = 5
 }
+
+bar {
+    status_command i3status
+    font pango:Hack, FontAwesome 10
+    strip_workspace_numbers yes
+    # Powerline: separator_symbol ""
+    separator_symbol ""
+    colors {
+        statusline         $darkwhite
+        background         $transparent
+        separator          $darkblue
+
+#                          BORDER       BACKGROUND   TEXT
+        focused_workspace  $transparent $transparent $darkgreen
+        inactive_workspace $transparent $transparent $darkblue
+        active_workspace   $transparent $transparent $darkgreen
+        urgent_workspace   $darkred     $darkred     $darkyellow
+        binding_mode       $darkred     $darkred     $darkyellow
+    }
+}
+
+# Window colors
+#                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
+client.focused          $black      $black      $darkwhite  $darkblack  $darkblack
+client.unfocused        $black      $black      $white      $darkblack  $darkblack
+client.focused_inactive $black      $black      $white      $darkblack  $darkblack
+client.urgent           $darkred    $darkred    $black      $darkred    $darkred
+client.background       $black
 
 ### End Custom Things ###
 
