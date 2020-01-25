@@ -44,11 +44,11 @@ set $ws9  "9:  "
 set $ws10 "10:  "
 
 bar {
-    status_command i3status
+    status_command i3blocks
     font pango:Hack, FontAwesome, PowerlineSymbols 12
     strip_workspace_numbers yes
     #separator_symbol ""
-    separator_symbol "  "
+    separator_symbol ""
     colors {
         statusline         $darkwhite
         background         $transparent
