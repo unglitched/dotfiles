@@ -5,7 +5,7 @@
 
 ### Custom Things ###
 set $mod Mod4
-font pango:Hack 12, FontAwesome, PowerlineSymbols
+font pango:Hack 12, FontAwesome
 
 # Colors
 set_from_resource $darkred     color1  #000000
@@ -54,7 +54,7 @@ general {
 
 bar {
     status_command i3status
-    font pango:Hack, FontAwesome 10
+    font pango:Hack, FontAwesome, PowerlineSymbols 12
     strip_workspace_numbers yes
     separator_symbol ""
     #separator_symbol ""
