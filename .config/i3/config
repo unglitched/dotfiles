@@ -80,7 +80,7 @@ assign [class="(?i)kitty-docs2"] $ws3
 assign [class="(?i)code"] $ws2
 assign [class="(?i)firefox"] $ws4
 assign [class="(?i)kitty-wtf"] $ws3
-assign [class="(?i)wtfutil"] $ws3
+assign [class="(?i)wtfutil"] $ws5
 
 exec --no-startup-id i3-msg 'exec /usr/bin/kitty --class=kitty-main1'
 exec --no-startup-id i3-msg 'exec /usr/bin/kitty --class=kitty-main2'
