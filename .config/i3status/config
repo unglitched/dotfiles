@@ -11,17 +11,12 @@ volume master {
     device = "default"
     mixer_idx = "0"
     mixer = "Master"
-    format = "♪: %volume"
-}
-
-disk / {
-    format = "/ %free"
+    format = " ♪ %volume "
 }
 
 time {
-    format = "%d/%m/%y %H:%M:%S"
+    format = " %I:%M %p (%m/%d) "
 }
 
-order += "disk /"
 order += "volume master"
 order += "time"
