@@ -1,11 +1,10 @@
 general {
-    color_degraded = "#cb4b16"
+    colors = "true"
+    color_good = "#a6e12d"
+    color_degraded = "#fd971e"
+    color_bad = "#f82a71"
     output_format = "i3bar"
     interval = "10"
-    color_bad = "#dc322f"
-    colors = "true"
-    color_good = "#859900"
-    color_separator = "#586e75"
 }
 
 volume master {
