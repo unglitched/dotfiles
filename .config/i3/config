@@ -31,18 +31,6 @@ set $transparent #00000000
 # set desktop background
 exec --no-startup-id feh --randomize --bg-scale ~/Pictures/Wallpapers/*
 
-# Requires Font Awesome
-set $ws1  "1:  "
-set $ws2  "2:  "
-set $ws3  "3:  "
-set $ws4  "4:  "
-set $ws5  "5:  "
-set $ws6  "6:  "
-set $ws7  "7:  "
-set $ws8  "8:  "
-set $ws9  "9:  "
-set $ws10 "10:  "
-
 bar {
     status_command i3status
     font pango:Hack, FontAwesome, PowerlineSymbols 12
@@ -70,6 +58,28 @@ client.unfocused        $black      $black      $white      $darkblack  $darkbla
 client.focused_inactive $black      $black      $white      $darkblack  $darkblack
 client.urgent           $darkred    $darkred    $black      $darkred    $darkred
 client.background       $black
+
+
+# Assign workspace names. Requires Font Awesome
+set $ws1  "1: " # Main Terminals
+set $ws2  "2: " # VS Code
+set $ws3  "3: " # Docs/Notes
+set $ws4  "4: " # Firefox
+set $ws5  "5: " # WTFUtil
+set $ws6  "6: " # ???
+set $ws7  "7: " # ???
+set $ws8  "8: " # ???
+set $ws9  "9: " # ???
+set $ws10 "10: " # ???
+
+# Startup apps for each workspace
+exec --no-startup-id i3-msg 'workspace $ws1; exec /usr/bin/kitty; exec /usr/bin/kitty'
+exec --no-startup-id i3-msg 'workspace $ws2; exec /usr/bin/code'
+exec --no-startup-id i3-msg 'workspace $ws3; exec /usr/bin/kitty; exec /usr/bin/kitty'
+exec --no-startup-id i3-msg 'workspace $ws4; exec /usr/bin/firefox'
+exec --no-startup-id i3-msg 'workspace $ws5; exec /usr/local/bin/wtfutil'
+exec --no-startup-id i3-msg 'workspace $ws1'
+
 
 ### End Custom Things ###
 
