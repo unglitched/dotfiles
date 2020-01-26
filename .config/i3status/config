@@ -4,19 +4,11 @@ general {
     color_degraded = "#fd971e"
     color_bad = "#f82a71"
     output_format = "i3bar"
-    interval = "10"
-}
-
-volume master {
-    device = "default"
-    mixer_idx = "0"
-    mixer = "Master"
-    format = " ♪ %volume "
+    interval = "5"
 }
 
 time {
     format = " %I:%M %p (%m/%d) "
 }
 
-order += "volume master"
 order += "time"
