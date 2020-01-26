@@ -1,0 +1,28 @@
+general {
+    color_degraded = "#cb4b16"
+    output_format = "i3bar"
+    interval = "10"
+    color_bad = "#dc322f"
+    colors = "true"
+    color_good = "#859900"
+    color_separator = "#586e75"
+}
+
+volume master {
+    device = "default"
+    mixer_idx = "0"
+    mixer = "Master"
+    format = "♪: %volume"
+}
+
+disk / {
+    format = "/ %free"
+}
+
+time {
+    format = "%d/%m/%y %H:%M:%S"
+}
+
+order += "disk /"
+order += "volume master"
+order += "time"
