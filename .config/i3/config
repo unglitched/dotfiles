@@ -44,7 +44,7 @@ set $ws9  "9:  "
 set $ws10 "10:  "
 
 bar {
-    status_command i3blocks
+    status_command i3status
     font pango:Hack, FontAwesome, PowerlineSymbols 12
     strip_workspace_numbers yes
     #separator_symbol ""
