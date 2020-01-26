@@ -33,7 +33,7 @@ exec --no-startup-id feh --randomize --bg-scale ~/Pictures/Wallpapers/*
 
 bar {
     status_command i3status
-    font pango:Hack, FontAwesome, PowerlineSymbols 12
+    font pango:Hack, FontAwesome, PowerlineSymbols 13
     strip_workspace_numbers yes
     #separator_symbol ""
     separator_symbol ""
