@@ -4,7 +4,7 @@ general {
     color_degraded = "#fd971e"
     color_bad = "#f82a71"
     output_format = "i3bar"
-    interval = "5"
+    interval = "30"
 }
 
 time {
