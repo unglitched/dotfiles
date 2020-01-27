@@ -9,4 +9,3 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 source $HOME/.config/shell/functions
 source $HOME/.config/shell/aliases
-source $HOME/.config/shell/motd.sh | boxes -d parchment -p a2 | lolcat
