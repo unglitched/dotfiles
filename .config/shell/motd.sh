@@ -1,17 +1,17 @@
 echo "
 Don't forget:
-  conf-*    commands are shortcuts to edit your dotfiles.
-  config    is a git alias for the dotfiles repo
-  rofi      can be activated with Cmd+d
+  conf-*     commands are shortcuts to edit your dotfiles.
+  config     a git alias for the dotfiles repo
+  rofi       can be activated with Cmd+d
 
 Useful Custom Apps:
   Terminal
-    tldr    shorter manpages, with examples
-    ripgrep grep, but way faster
-    ranger  file browser
+    tldr     shorter manpages, with examples
+    ripgrep  grep, but way faster
+    ranger   file browser
 
   Development
-    code    Visual Studio Code, a fully featured IDE
+    code     Visual Studio Code, a fully featured IDE
     
   Reverse Engineering
     radare2  A nice and modern debugger
