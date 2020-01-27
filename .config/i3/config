@@ -81,7 +81,7 @@ assign [class="(?i)code"] $ws2
 assign [class="(?i)firefox"] $ws4
 assign [class="(?i)kitty-wtf"] $ws5
 
-exec --no-startup-id i3-msg "exec /usr/bin/kitty --class=kitty-main1 -e '/usr/bin/zsh -e $HOME/.config/shell/motd.sh | boxes -d parchment -p a2 | lolcat'"
+exec --no-startup-id i3-msg "exec /usr/bin/kitty --class=kitty-main1 -e '/usr/bin/zsh -e $HOME/.config/shell/motd.sh | /usr/bin/boxes -d parchment -p a2 | /usr/games/lolcat'"
 exec --no-startup-id i3-msg 'exec /usr/bin/kitty --class=kitty-main2'
 exec --no-startup-id i3-msg 'exec /usr/bin/kitty --class=kitty-docs1'
 exec --no-startup-id i3-msg 'exec /usr/bin/kitty --class=kitty-docs2'
