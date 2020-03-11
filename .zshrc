@@ -12,12 +12,6 @@ export EDITOR=vim
 ZSH_THEME="powerlevel10k/powerlevel10k"
 POWERLINE_HIDE_HOST_NAME="true"
 
-plugins=(git)
-
-source $ZSH/oh-my-zsh.sh
-#source $HOME/.config/shell/functions
-source $HOME/.config/shell/aliases
-
 plugins=(
   zsh-autosuggestions
   git
