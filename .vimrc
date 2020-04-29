@@ -70,7 +70,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plug 'nathanaelkane/vim-indent-guides'
 
 " Linting
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 
 " NerdTree stuff
 Plug 'preservim/nerdtree'
