@@ -13,7 +13,6 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 POWERLINE_HIDE_HOST_NAME="true"
 
 plugins=(
-  zsh-autosuggestions
   git
   aws
   python
