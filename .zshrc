@@ -13,11 +13,8 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 POWERLINE_HIDE_HOST_NAME="true"
 
 plugins=(
-  zsh-autosuggestions
   git
   aws
-  brew
-  cask
   python
 )
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
