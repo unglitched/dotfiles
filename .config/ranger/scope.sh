@@ -52,6 +52,8 @@ handle_extension() {
         # JavaScript
         js)
             js-beautify "${FILE_PATH}" && exit 5
+            exit 1;;
+            
         # PDF
         pdf)
             # Preview as text conversion
@@ -70,12 +72,12 @@ handle_extension() {
             exit 1;;
     
         # HTML
-        #htm|html|xhtml)
-        #    # Preview as text conversion
-        #    w3m -dump "${FILE_PATH}" && exit 5
-        #    lynx -dump -- "${FILE_PATH}" && exit 5
-        #    elinks -dump "${FILE_PATH}" && exit 5
-        #    ;; # Continue with next handler on failure
+        htm|html|xhtml)
+            # Preview as text conversion
+            w3m -dump "${FILE_PATH}" && exit 5
+            lynx -dump -- "${FILE_PATH}" && exit 5
+            elinks -dump "${FILE_PATH}" && exit 5
+            ;; # Continue with next handler on failure
     esac
 }
 handle_image() {
@@ -191,7 +193,7 @@ handle_mime() {
 # CUSTOM - Binary handler. Edit the second rabin2 invocation to whatever you want for compiled binaries.
 handle_binary() {
     if [[ $( rabin2 -I "${FILE_PATH}" | grep "havecode true" -c ) == 1 ]]; then
-            rabin2 -i "${FILE_PATH}"  && exit 5
+            rabin2 -zqq "${FILE_PATH}"  && exit 5
     else 
                     exit 1
     fi
@@ -210,4 +212,5 @@ handle_extension
 handle_mime "${MIMETYPE}"
 handle_binary
 handle_fallback
+
 exit 1
