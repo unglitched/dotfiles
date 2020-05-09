@@ -74,21 +74,16 @@ set $ws10 "10: "
 
 # Startup apps for each workspace
 assign [class="(?i)kitty-main1"] $ws1
-assign [class="(?i)kitty-main2"] $ws1
 assign [class="(?i)kitty-docs1"] $ws3
 assign [class="(?i)kitty-docs2"] $ws3
 assign [class="(?i)code"] $ws2
 assign [class="(?i)firefox"] $ws4
-assign [class="(?i)kitty-wtf"] $ws5
 
 #exec --no-startup-id i3-msg "exec /usr/bin/kitty --class=kitty-main1 -e '/usr/bin/zsh -e $HOME/.config/shell/motd.sh | /usr/bin/boxes -d parchment -p a2 | /usr/games/lolcat'"
 exec --no-startup-id i3-msg 'exec /usr/bin/kitty --class=kitty-main1'
-exec --no-startup-id i3-msg 'exec /usr/bin/kitty --class=kitty-main2'
 exec --no-startup-id i3-msg 'exec /usr/bin/kitty --class=kitty-docs1'
 exec --no-startup-id i3-msg 'exec /usr/bin/kitty --class=kitty-docs2'
-exec --no-startup-id i3-msg 'exec /usr/bin/code'
 exec --no-startup-id i3-msg 'exec /usr/bin/firefox'
-exec --no-startup-id i3-msg 'exec /usr/bin/kitty --class=kitty-wtf -e /usr/local/bin/wtfutil'
 exec --no-startup-id i3-msg 'workspace $ws1'
 
 
