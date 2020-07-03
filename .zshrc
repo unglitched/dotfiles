@@ -25,3 +25,4 @@ export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 source $ZSH/oh-my-zsh.sh
 source $HOME/.config/shell/functions
 source $HOME/.config/shell/aliases
+source $HOME/.config/shell/docker_aliases
