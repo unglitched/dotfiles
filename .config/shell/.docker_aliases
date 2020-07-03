@@ -1,0 +1,15 @@
+# These are aliases for tools managed with Docker.
+# I started using docker recently for certain apps for a few reasons:
+#   1. Reduce attack surface.
+#   2. Debian runs behind on some security tooling, this helps stay up to date.
+#   3. Reduce dependency hell
+#
+# Unfortunately this means: Docker images will eat a lot of space, they start slower, and if a maintainer removes a container I'm SOL. 
+# As such I'm keeping a fairly high bar here. Only docker images updated by the maintainer are allowed.
+
+# Amass, recon framework.
+alias amass='docker run -it --rm -v '$HOME/.config/amass:/.config/amass caffix/amass'
+
+
+# This will update *all* the images. Maybe be careful about this. :)
+alias qr_docker_update="docker images |grep -v REPOSITORY|awk '{print $1}'|xargs -L1 docker pull"
