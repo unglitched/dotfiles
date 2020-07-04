@@ -8,8 +8,8 @@
 # As such I'm keeping a fairly high bar here. Only docker images updated by the maintainer are allowed.
 
 # Amass, recon framework.
-alias amass='docker run -it --rm -v '$HOME/.config/amass:/.config/amass caffix/amass'
+alias amass='docker run -it --rm -v '$HOME/.config/amass:/.config/amass caffix/amass"'
 
 
 # This will update *all* the images. Maybe be careful about this. :)
-alias qr_docker_update="docker images |grep -v REPOSITORY|awk '{print $1}'|xargs -L1 docker pull"
+alias qr_docker_update="docker images | grep -v REPOSITORY | cut -d \" \" -f 1 | xargs -L1 docker pull"
