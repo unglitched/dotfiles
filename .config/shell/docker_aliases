@@ -11,13 +11,16 @@
 # https://hub.docker.com/r/amazon/aws-cli
 
 # Amass, recon framework.
-alias amass-d="docker run -it --rm -v $HOME/.config/amass:/.config/amass caffix/amass"
+alias d-amass="docker run -it --rm -v $HOME/.config/amass:/.config/amass caffix/amass"
 
 # testssl.sh, SSL/TLS check tool. Set to 3.0 for now.
-alias testssl.sh-d="docker run -it --rm drwetter/testssl.sh:3.0"
+alias d-testssl.sh="docker run -it --rm drwetter/testssl.sh:3.0"
 
 # truffleHog
-alias trufflehog-d="docker run -it --rm dxa4481/trufflehog:latest"
+alias d-trufflehog="docker run -it --rm dxa4481/trufflehog:latest"
+
+# gitleaks
+alias d-gitleaks="docker run -it --rm zricethezav/gitleaks:latest"
 
 # This will update *all* the images. Maybe be careful about this. :)
 alias qr_docker_update="docker images | grep -v REPOSITORY | cut -d \" \" -f 1 | xargs -L1 docker pull"
