@@ -187,6 +187,9 @@ handle_mime() {
             mediainfo "${FILE_PATH}" && exit 5
             exiftool "${FILE_PATH}" && exit 5
             exit 1;;
+        CSV Text)
+            csvtool readable "${FILE_PATH}" && exit 5
+            exit 1;;
     esac
 }
 
