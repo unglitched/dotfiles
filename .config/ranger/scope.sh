@@ -196,10 +196,11 @@ handle_mime() {
 # CUSTOM - Binary handler. Edit the second rabin2 invocation to whatever you want for compiled binaries.
 handle_binary() {
     if [[ $( rabin2 -I "${FILE_PATH}" | grep "havecode true" -c ) == 1 ]]; then
-            rabin2 -zqq "${FILE_PATH}"  && exit 5
+            echo '----- Binary File Information -----' && rabin2 -I "${FILE_PATH}" && echo '----- Strings -----' && rabin2 -zqq "${FILE_PATH}" && exit 5
     else 
                     exit 1
     fi
+    exit 1
 }
 handle_fallback() {
     echo '----- File Type Classification -----' && file --dereference --brief -- "${FILE_PATH}" && exit 5
