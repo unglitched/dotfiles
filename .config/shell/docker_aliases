@@ -17,7 +17,7 @@ alias d-amass="docker run -it --rm -v $HOME/.config/amass:/.config/amass caffix/
 alias d-testssl.sh="docker run -it --rm drwetter/testssl.sh:3.0"
 
 # truffleHog
-alias d-trufflehog="docker run -it --rm dxa4481/trufflehog:latest"
+alias d-trufflehog="docker run -it --rm -v "$PWD:/pwd" trufflesecurity/trufflehog:latest github --org=trufflesecurity"
 
 # gitleaks
 alias d-gitleaks="docker run -it --rm zricethezav/gitleaks:latest"
